@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  title: Swagger Rest Example
+  version: 1.0.0
+  description: This is the swagger file that goes with our server code
+paths:
+  /api/bucketList:
+    get:
+      summary: List all bucket list items
+      operationId: bucket_list.get_bucket_list
+      tags:
+        - BucketList
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of bucket list items
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/BucketList"
+        default:
+            description: unexpected error
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+
+    post:
+      summary: Create a bucket list item
+      operationId: bucket_list.create_bucket_list_item
+      tags:
+        - BucketList
+      requestBody:
+        description: the bucket list item to create
+        content:
+          application/json:
+            schema:
+              x-body-name: item
+              $ref: '#/components/schemas/BucketListItem'
+      responses:
+        '201':
+          description: Successfully created bucket list item
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/bucketList/{item_id}:
+    get:
+      summary: Info for a specific bucket list item
+      operationId: bucket_list.get_bucket_list_item
+      tags:
+        - BucketList
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          description: The id of the bucketListItem to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BucketListItem"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    put:
+      operationId: bucket_list.update_bucket_list_item
+      tags:
+        - BucketList
+      description: Update a bucket list item
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          description: Id the person to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: the bucket list item to update
+        content:
+          application/json:
+            schema:
+              x-body-name: item
+              $ref: '#/components/schemas/BucketListItem'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BucketListItem"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            
+    delete:
+      operationId: bucket_list.delete_bucket_list_item
+      tags:
+        - BucketList
+      description: Delete a bucket list item
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          description: Id of the person to delete
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully deleted a bucket list item
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    BucketListItem:
+      type: object
+      required:
+        - title
+        - description
+        - completed
+      properties:
+        item_id:
+          type: integer
+          format: int64
+        title:
+            type: string
+        description:
+          type: string
+        completed:
+            type: boolean
+    BucketList:
+      type: array
+      items:
+        $ref: "#/components/schemas/BucketListItem"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+            
