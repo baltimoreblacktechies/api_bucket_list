@@ -29,9 +29,11 @@ ma = Marshmallow(app)
 # configure database
 def init_db():
     with app.app_context():
+        if not os.path.exists("bucket.db"):
+            db.create_all()
         # Delete database file if it exists currently
-        if os.path.exists("bucket.db"):
-            os.remove("bucket.db")
+        # if os.path.exists("bucket.db"):
+        #     os.remove("bucket.db")
 
         # Create the database
-        db.create_all()
+        # db.create_all()

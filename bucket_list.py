@@ -105,7 +105,7 @@ def update_bucket_list_item(item_id, item):
     :return:             updated bucket list item structure
     """
     # Get the person requested from the db into session
-    update_item = BucketListItemSchema.query.filter(
+    update_item = BucketListItem.query.filter(
         BucketListItem.item_id == item_id
     ).one_or_none()
 
@@ -139,10 +139,7 @@ def update_bucket_list_item(item_id, item):
         db.session.commit()
 
         # reload item to get new timestamp
-        reloaded_item = (
-            BucketListItem.query.filter(BucketListItem.item_id, item_id)
-            .one_or_none()
-        )
+        reloaded_item = BucketListItem.query.get(item_id)
 
         data = schema.dump(reloaded_item, session=db.session)
 
