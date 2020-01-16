@@ -50,3 +50,6 @@ The requirements.txt file should list all Python libraries that your project dep
 and they will be installed using:
 
 ```pip3 install -r requirements.txt```
+
+```pip3 install Flask Flask-SQLAlchemy flask-marshmallow marshmallow-sqlalchemy marshmallow "connexion[swagger-ui]"```
+
