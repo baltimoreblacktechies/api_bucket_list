@@ -13,8 +13,7 @@ performing actions against the database
 
 ## Building Blocks
 
-Flask
-=====
+### Flask
 
 Flask is a lightweight `WSGI`_ web application framework. It is designed
 to make getting started quick and easy, with the ability to scale up to
@@ -23,8 +22,7 @@ complex applications.
 * Website: https://palletsprojects.com/p/flask/
 * Documentation: https://flask.palletsprojects.com/
 
-Connexion
-=========
+### Connexion
 
 Connexion is a framework that automagically handles HTTP requests based on `OpenAPI Specification`_
 (formerly known as Swagger Spec) of your API described in `YAML format`_. Connexion allows you to
@@ -32,14 +30,17 @@ write an OpenAPI specification, then maps the endpoints to your Python functions
 
 * http://connexion.readthedocs.org/en/latest/
 
-SQLAlchemy
-==========
+### SQLAlchemy
 
 SQLAlchemy is the Python SQL toolkit and Object Relational Mapper
 that gives application developers the full power and
 flexibility of SQL.
 
 * http://www.sqlalchemy.org/docs/
+
+### Marshmallow: simplified object serialization
+
+**marshmallow** is an ORM/ODM/framework-agnostic library for converting complex datatypes, such as objects, to and from native Python datatypes.
 
 
 ## Notes
