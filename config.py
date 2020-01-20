@@ -12,7 +12,10 @@ connex_app = connexion.App(__name__, specification_dir=basedir)
 app = connex_app.app
 
 # Build the Sqlite ULR for SqlAlchemy
-sqlite_url = "sqlite:////" + os.path.join(basedir, "bucket.db")
+if os.name == "nt":
+    sqlite_url = "sqlite:///" + os.path.join(basedir, "bucket.db")
+else:
+    sqlite_url = "sqlite:////" + os.path.join(basedir, "bucket.db")
 
 # Configure the SqlAlchemy part of the app instance
 app.config["SQLALCHEMY_ECHO"] = True
